@@ -3,336 +3,2328 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>YAKIN - Yakınındaki insanlarla tanış</title>
+<title>YAKIN - Yakınındaki İnsanlarla Tanış</title>
+<meta name="description" content="YAKIN - Gerçek konumuna göre sana yakın insanları keşfet ve güvenli şekilde tanış.">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,sans-serif;
-background:#fff8fb;
-color:#29232a;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-header{
-height:70px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 22px;
-border-bottom:1px solid #eee;
+:root{
+    --pink:#ff3d7f;
+    --pink2:#ff709d;
+    --light:#fff0f5;
+    --bg:#fff8fb;
+    --white:#ffffff;
+    --dark:#29232a;
+    --text:#393139;
+    --muted:#817981;
+    --border:#efdce4;
+    --green:#20a568;
+    --red:#e94b60;
+    --shadow:0 8px 28px rgba(48,25,35,.08);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+    padding-bottom:82px;
+}
+
+/* HEADER */
+
+.topbar{
+    height:68px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 17px;
 }
 
 .logo{
-font-size:30px;
-font-weight:800;
-color:#e83e72;
+    font-size:29px;
+    font-weight:900;
+    letter-spacing:-1.5px;
+    color:var(--pink);
 }
 
-.login{
-color:#e83e72;
-border:1px solid #e83e72;
-padding:10px 18px;
-border-radius:25px;
-text-decoration:none;
-font-weight:bold;
+.logo span{
+    color:var(--dark);
 }
+
+.location-state{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:700;
+}
+
+.location-dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#aaa;
+}
+
+.location-dot.active{
+    background:var(--green);
+    box-shadow:0 0 0 4px rgba(32,165,104,.12);
+}
+
+/* MAIN */
+
+main{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:17px 14px 30px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* HERO */
 
 .hero{
-text-align:center;
-padding:70px 20px;
-background:linear-gradient(#fff0f5,#fff8fb);
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:white;
+    border-radius:27px;
+    padding:25px 20px;
+    box-shadow:0 13px 35px rgba(255,61,127,.23);
+    margin-bottom:16px;
 }
 
-.heart{
-font-size:55px;
-margin-bottom:15px;
+.hero:after{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    right:-70px;
+    top:-70px;
 }
 
 .hero h1{
-font-size:42px;
-line-height:1.1;
-margin-bottom:20px;
-}
-
-.hero h1 span{
-color:#e83e72;
+    position:relative;
+    z-index:1;
+    font-size:29px;
+    line-height:1.1;
+    margin-bottom:9px;
 }
 
 .hero p{
-font-size:18px;
-line-height:1.6;
-color:#706970;
-max-width:550px;
-margin:auto;
+    position:relative;
+    z-index:1;
+    font-size:14px;
+    line-height:1.55;
 }
 
-.buttons{
-margin-top:30px;
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
+.hero-actions{
+    position:relative;
+    z-index:2;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:18px;
 }
 
 .btn{
-display:inline-block;
-padding:15px 28px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
+    border:none;
+    border-radius:13px;
+    padding:12px 16px;
+    font-weight:800;
 }
 
-.primary{
-background:#e83e72;
-color:white;
+.btn-white{
+    background:white;
+    color:var(--pink);
 }
 
-.secondary{
-background:white;
-color:#e83e72;
-border:1px solid #e83e72;
+.btn-transparent{
+    background:rgba(255,255,255,.16);
+    color:white;
+    border:1px solid rgba(255,255,255,.3);
 }
 
-.section{
-max-width:1050px;
-margin:auto;
-padding:55px 20px;
+/* LOCATION */
+
+.location-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:21px;
+    padding:17px;
+    box-shadow:var(--shadow);
 }
 
-.title{
-text-align:center;
-font-size:28px;
-margin-bottom:30px;
+.location-head{
+    display:flex;
+    align-items:center;
+    gap:11px;
 }
 
-.profiles{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
+.location-icon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    background:var(--light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
 }
 
-.profile{
-background:white;
-padding:28px 20px;
-text-align:center;
-border-radius:22px;
-box-shadow:0 8px 25px rgba(0,0,0,.07);
+.location-head strong{
+    display:block;
+    font-size:15px;
+}
+
+.location-head small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.location-card p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.55;
+    margin-top:11px;
+}
+
+.location-button{
+    width:100%;
+    margin-top:13px;
+    border:none;
+    background:var(--light);
+    color:var(--pink);
+    padding:12px;
+    border-radius:12px;
+    font-weight:800;
+}
+
+/* SECTION */
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:22px 3px 12px;
+}
+
+.section-head h2{
+    font-size:19px;
+}
+
+.section-head span{
+    color:var(--pink);
+    font-size:10px;
+    font-weight:800;
+}
+
+/* FILTERS */
+
+.filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:3px;
+}
+
+.filter{
+    flex:none;
+    background:white;
+    border:1px solid var(--border);
+    color:var(--muted);
+    padding:9px 13px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.filter.active{
+    background:var(--pink);
+    color:white;
+    border-color:var(--pink);
+}
+
+/* PEOPLE */
+
+.people{
+    display:grid;
+    gap:12px;
+    margin-top:12px;
+}
+
+.person{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:21px;
+    padding:14px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    box-shadow:var(--shadow);
 }
 
 .avatar{
-width:90px;
-height:90px;
-margin:0 auto 15px;
-border-radius:50%;
-background:#ffe1eb;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:42px;
+    width:68px;
+    height:68px;
+    flex:none;
+    border-radius:21px;
+    background:linear-gradient(135deg,#ffd3e1,#ff82a8);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:29px;
+    overflow:hidden;
 }
 
-.profile h3{
-margin-bottom:8px;
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-.profile p{
-color:#777;
+.person-info{
+    min-width:0;
+    flex:1;
 }
 
-.features{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
+.person-name{
+    font-weight:900;
+    font-size:16px;
 }
 
-.feature{
-background:white;
-padding:30px 20px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 8px 25px rgba(0,0,0,.06);
+.person-meta{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
 }
 
-.icon{
-font-size:40px;
-margin-bottom:15px;
+.distance{
+    color:var(--pink);
+    font-size:11px;
+    font-weight:800;
+    margin-top:6px;
 }
 
-.feature h3{
-margin-bottom:10px;
+.music{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    margin-top:7px;
+    background:var(--light);
+    color:#b83764;
+    padding:5px 8px;
+    border-radius:8px;
+    font-size:10px;
+    max-width:100%;
 }
 
-.feature p{
-color:#777;
-line-height:1.5;
+.person-actions{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
 }
 
-.cta{
-margin:20px;
-padding:55px 20px;
-border-radius:28px;
-background:#e83e72;
-color:white;
-text-align:center;
+.icon-btn{
+    width:40px;
+    height:38px;
+    border:none;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
 }
 
-.cta h2{
-font-size:30px;
-margin-bottom:15px;
+.like-btn{
+    background:var(--light);
+    color:var(--pink);
 }
 
-.cta p{
-margin-bottom:25px;
+.like-btn.liked{
+    background:var(--pink);
+    color:white;
 }
 
-.cta .btn{
-background:white;
-color:#e83e72;
+.chat-btn{
+    background:#f4f1f3;
+    color:#555;
 }
 
-footer{
-text-align:center;
-padding:35px 20px;
-color:#888;
+/* CHANCE */
+
+.chance{
+    margin-top:18px;
+    background:var(--dark);
+    color:white;
+    border-radius:23px;
+    padding:19px;
+    box-shadow:var(--shadow);
 }
 
-@media(max-width:700px){
-
-.hero h1{
-font-size:34px;
+.chance h2{
+    font-size:19px;
 }
 
-.profiles,
-.features{
-grid-template-columns:1fr;
+.chance p{
+    margin-top:6px;
+    color:#c9c2c8;
+    font-size:12px;
+    line-height:1.5;
 }
 
-.section{
-padding:45px 18px;
+.chance-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:14px;
 }
 
+.chance-btn{
+    border:1px solid #4c454c;
+    background:#383238;
+    color:white;
+    border-radius:13px;
+    padding:11px 8px;
+    font-size:12px;
+}
+
+/* SECURITY */
+
+.security{
+    margin-top:17px;
+    background:#effaf4;
+    border:1px solid #d7efdf;
+    border-radius:19px;
+    padding:15px;
+}
+
+.security-title{
+    color:#15824e;
+    font-size:13px;
+    font-weight:900;
+}
+
+.security p{
+    color:#567264;
+    font-size:11px;
+    line-height:1.55;
+    margin-top:6px;
+}
+
+/* PROFILE */
+
+.profile-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:23px 18px;
+    box-shadow:var(--shadow);
+    text-align:center;
+}
+
+.profile-photo{
+    width:105px;
+    height:105px;
+    margin:auto;
+    border-radius:32px;
+    background:linear-gradient(135deg,#ffd1e0,#ff719d);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:45px;
+    overflow:hidden;
+}
+
+.profile-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-card h2{
+    margin-top:13px;
+    font-size:23px;
+}
+
+.profile-city{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+.profile-bio{
+    color:#555;
+    font-size:13px;
+    line-height:1.55;
+    margin-top:13px;
+}
+
+.profile-music{
+    background:var(--light);
+    color:#b73863;
+    border-radius:14px;
+    padding:12px;
+    margin-top:15px;
+    font-size:12px;
+}
+
+.profile-actions{
+    display:grid;
+    gap:9px;
+    margin-top:15px;
+}
+
+.profile-action{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:13px;
+    background:#f5f1f3;
+    color:#443d43;
+    font-weight:800;
+}
+
+.profile-action.primary{
+    background:var(--pink);
+    color:white;
+}
+
+/* MATCHES */
+
+.match-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:22px;
+    text-align:center;
+    box-shadow:var(--shadow);
+}
+
+.match-icon{
+    font-size:48px;
+}
+
+.match-card h2{
+    margin-top:9px;
+    font-size:22px;
+}
+
+.match-card p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-top:7px;
+}
+
+.match-card button{
+    width:100%;
+    margin-top:15px;
+    padding:13px;
+    border:none;
+    border-radius:13px;
+    background:var(--pink);
+    color:white;
+    font-weight:800;
+}
+
+/* MESSAGES */
+
+.message-list{
+    display:grid;
+    gap:10px;
+}
+
+.message-item{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:13px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.message-avatar{
+    width:50px;
+    height:50px;
+    border-radius:16px;
+    background:#ffd9e5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+}
+
+.message-info{
+    flex:1;
+    min-width:0;
+}
+
+.message-info strong{
+    display:block;
+    font-size:14px;
+}
+
+.message-info span{
+    display:block;
+    margin-top:4px;
+    color:var(--muted);
+    font-size:11px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* EMPTY */
+
+.empty{
+    background:white;
+    border:1px dashed #e5cbd4;
+    border-radius:19px;
+    padding:27px 17px;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.empty-icon{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    z-index:200;
+    bottom:0;
+    left:0;
+    right:0;
+    height:74px;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(15px);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.nav-item{
+    background:none;
+    border:none;
+    color:#898188;
+    min-width:65px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    font-size:10px;
+}
+
+.nav-icon{
+    font-size:21px;
+}
+
+.nav-item.active{
+    color:var(--pink);
+    font-weight:900;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    z-index:1000;
+    inset:0;
+    background:rgba(25,18,22,.58);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:760px;
+    background:white;
+    border-radius:25px 25px 0 0;
+    padding:22px;
+    animation:up .22s ease;
+}
+
+@keyframes up{
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:translateY(0);
+    }
+}
+
+.modal-box h2{
+    font-size:20px;
+}
+
+.modal-box p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-top:7px;
+}
+
+.modal-buttons{
+    display:grid;
+    gap:8px;
+    margin-top:16px;
+}
+
+.modal-btn{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:13px;
+    background:#f4f0f2;
+    font-weight:800;
+}
+
+.modal-btn.primary{
+    background:var(--pink);
+    color:white;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    z-index:2000;
+    left:50%;
+    bottom:91px;
+    transform:translateX(-50%) translateY(15px);
+    opacity:0;
+    pointer-events:none;
+    background:#29242a;
+    color:white;
+    padding:11px 15px;
+    border-radius:12px;
+    font-size:11px;
+    transition:.25s;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* FORM */
+
+.form-group{
+    margin-top:13px;
+    text-align:left;
+}
+
+.form-group label{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px;
+    outline:none;
+    background:#fff;
+}
+
+.form-group textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+/* DESKTOP */
+
+@media(min-width:700px){
+
+    .bottom-nav{
+        width:760px;
+        left:50%;
+        right:auto;
+        transform:translateX(-50%);
+        border-left:1px solid var(--border);
+        border-right:1px solid var(--border);
+        border-radius:20px 20px 0 0;
+    }
+
+    .people{
+        grid-template-columns:1fr 1fr;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">YAKIN</div>
-<a href="#" class="login">Giriş Yap</a>
+<div class="app">
+
+<!-- HEADER -->
+
+<header class="topbar">
+
+    <div class="logo">
+        YAKIN<span>.</span>
+    </div>
+
+    <div class="location-state">
+        <span
+            id="locationDot"
+            class="location-dot">
+        </span>
+
+        <span id="locationText">
+            Konum bekleniyor
+        </span>
+    </div>
+
 </header>
 
-<section class="hero">
 
-<div class="heart">💗</div>
+<main>
 
-<h1>
-<span>Yakınındaki</span><br>
-insanlarla tanış.
-</h1>
+<!-- =========================
+     ANA SAYFA
+========================= -->
 
-<p>
-Yeni arkadaşlıklar kur, sohbet et ve sana yakın
-insanlarla güzel bağlantılar keşfet.
-</p>
+<section
+    id="home"
+    class="page active">
 
-<div class="buttons">
-<a href="#" class="btn primary">Ücretsiz Kaydol</a>
-<a href="#nasil" class="btn secondary">Nasıl Çalışır?</a>
-</div>
+    <div class="hero">
+
+        <h1>
+            Yakınındaki insanlarla tanış.
+        </h1>
+
+        <p>
+            YAKIN, gerçek konumuna göre sana
+            yakın insanları keşfetmeni sağlar.
+            Tam konumun iznin olmadan paylaşılmaz.
+        </p>
+
+        <div class="hero-actions">
+
+            <button
+                class="btn btn-white"
+                onclick="requestLocation()">
+                📍 Konumumu Kullan
+            </button>
+
+            <button
+                class="btn btn-transparent"
+                onclick="showPage('matches')">
+                ❤️ Eşleşmeler
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- KONUM -->
+
+    <div class="location-card">
+
+        <div class="location-head">
+
+            <div class="location-icon">
+                📍
+            </div>
+
+            <div>
+
+                <strong>
+                    Gerçek yakınlık sistemi
+                </strong>
+
+                <small>
+                    Mesafe metre/km olarak hesaplanır
+                </small>
+
+            </div>
+
+        </div>
+
+        <p>
+            Konumun yalnızca yakınlık hesabında kullanılır.
+            Diğer kullanıcılar senin tam adresini veya
+            noktasal konumunu göremez.
+        </p>
+
+        <button
+            class="location-button"
+            onclick="requestLocation()">
+            Konumumu Güncelle
+        </button>
+
+    </div>
+
+
+    <!-- YAKIN KİŞİLER -->
+
+    <div class="section-head">
+
+        <h2>
+            📍 Sana yakın
+        </h2>
+
+        <span>
+            MESAFE
+        </span>
+
+    </div>
+
+
+    <!-- MESAFE FİLTRELERİ -->
+
+    <div class="filters">
+
+        <button
+            class="filter active"
+            onclick="setDistance(1,this)">
+            1 km
+        </button>
+
+        <button
+            class="filter"
+            onclick="setDistance(5,this)">
+            5 km
+        </button>
+
+        <button
+            class="filter"
+            onclick="setDistance(10,this)">
+            10 km
+        </button>
+
+        <button
+            class="filter"
+            onclick="setDistance(25,this)">
+            25 km
+        </button>
+
+    </div>
+
+
+    <div
+        id="people"
+        class="people">
+    </div>
+
+
+    <!-- ŞANSINI DENE -->
+
+    <div class="chance">
+
+        <h2>
+            🎲 Şansını Dene
+        </h2>
+
+        <p>
+            Bugün nasıl bir tanışma istiyorsun?
+        </p>
+
+        <div class="chance-grid">
+
+            <button
+                class="chance-btn"
+                onclick="chooseChance('Kahve')">
+                ☕ Kahve
+            </button>
+
+            <button
+                class="chance-btn"
+                onclick="chooseChance('Yürüyüş')">
+                🚶 Yürüyüş
+            </button>
+
+            <button
+                class="chance-btn"
+                onclick="chooseChance('Müzik')">
+                🎵 Müzik
+            </button>
+
+            <button
+                class="chance-btn"
+                onclick="chooseChance('Sohbet')">
+                💬 Sohbet
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GÜVENLİK -->
+
+    <div class="security">
+
+        <div class="security-title">
+            🛡️ YAKIN konum güvenliği
+        </div>
+
+        <p>
+            Gerçek konumun yakınlık hesabında kullanılır.
+            Tam konumun başka kullanıcılara gösterilmez.
+            Konum paylaşımı yalnızca iki tarafın
+            karşılıklı onayından sonra yapılabilir.
+        </p>
+
+    </div>
 
 </section>
 
-<section class="section">
 
-<h2 class="title">YAKIN'da seni kimler bekliyor?</h2>
+<!-- =========================
+     EŞLEŞMELER
+========================= -->
 
-<div class="profiles">
+<section
+    id="matches"
+    class="page">
 
-<div class="profile">
-<div class="avatar">👩🏻</div>
-<h3>Ayşe, 29</h3>
-<p>📍 İstanbul</p>
-</div>
+    <div class="section-head">
 
-<div class="profile">
-<div class="avatar">👩🏼</div>
-<h3>Elif, 32</h3>
-<p>📍 İstanbul</p>
-</div>
+        <h2>
+            ❤️ YAKIN Eşleşmeler
+        </h2>
 
-<div class="profile">
-<div class="avatar">👩🏻‍🦰</div>
-<h3>Zeynep, 27</h3>
-<p>📍 İstanbul</p>
-</div>
+    </div>
 
-</div>
 
-</section>
+    <div class="match-card">
 
-<section class="section" id="nasil">
+        <div class="match-icon">
+            💗
+        </div>
 
-<h2 class="title">YAKIN nasıl çalışır?</h2>
+        <h2>
+            Karşılıklı YAKIN ol
+        </h2>
 
-<div class="features">
+        <p>
+            Bir kişiye YAKIN isteği gönder.
+            O kişi de seni seçerse gerçek bir
+            karşılıklı eşleşme oluşur.
+        </p>
 
-<div class="feature">
-<div class="icon">👤</div>
-<h3>Profilini oluştur</h3>
-<p>Kendini tanıt ve seni anlatan güzel bir profil oluştur.</p>
-</div>
+        <button
+            onclick="showPage('home')">
+            Yakınındaki kişileri keşfet
+        </button>
 
-<div class="feature">
-<div class="icon">📍</div>
-<h3>Yakınındakileri keşfet</h3>
-<p>Sana yakın insanları keşfet ve yeni bağlantılar kur.</p>
-</div>
+    </div>
 
-<div class="feature">
-<div class="icon">💬</div>
-<h3>Sohbete başla</h3>
-<p>Karşılıklı ilgi olduğunda sohbet etmeye başlayın.</p>
-</div>
 
-</div>
+    <div
+        id="matchesList"
+        style="margin-top:14px">
+    </div>
 
 </section>
 
-<section class="cta">
 
-<h2>YAKIN'ını bul. ✨</h2>
+<!-- =========================
+     MESAJLAR
+========================= -->
 
-<p>Yeni insanlarla tanışmak için ilk adımı bugün at.</p>
+<section
+    id="messages"
+    class="page">
 
-<a href="#" class="btn">YAKIN'a Katıl</a>
+    <div class="section-head">
+
+        <h2>
+            💬 Mesajlar
+        </h2>
+
+    </div>
+
+
+    <div
+        id="messageList"
+        class="message-list">
+    </div>
 
 </section>
 
-<footer>
-© 2026 YAKIN · Yeni insanlarla tanışmanın daha güzel yolu.
-</footer>
 
-</body>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- =========================
+     PROFİL
+========================= -->
+
+<section
+    id="profile"
+    class="page">
+
+    <div class="profile-card">
+
+        <div
+            id="profilePhoto"
+            class="profile-photo">
+            👨🏻
+        </div>
+
+        <h2 id="profileName">
+            Kamil
+        </h2>
+
+        <div
+            id="profileCity"
+            class="profile-city">
+            İstanbul
+        </div>
+
+        <div
+            id="profileBio"
+            class="profile-bio">
+            Sosyalleşmeyi, müziği ve güzel sohbetleri seviyorum.
+        </div>
+
+        <div class="profile-music">
+
+            🎵 Profil müziğim
+
+            <br>
+
+            <strong id="profileMusic">
+                Neşet Ertaş · Yolcu
+            </strong>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <button
+                class="profile-action primary"
+                onclick="editProfile()">
+                ✏️ Profili Düzenle
+            </button>
+
+            <button
+                class="profile-action"
+                onclick="chooseMusic()">
+                🎵 Profil müziğini değiştir
+            </button>
+
+            <button
+                class="profile-action"
+                onclick="showSecurity()">
+                🛡️ Konum ve güvenlik
+            </button>
+
+            <button
+                class="profile-action"
+                onclick="showBlocked()">
+                🚫 Engellenen kişiler
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     ALT MENÜ
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-item active"
+        data-page="home"
+        onclick="showPage('home')">
+
+        <span class="nav-icon">
+            📍
+        </span>
+
+        <span>
+            Keşfet
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="matches"
+        onclick="showPage('matches')">
+
+        <span class="nav-icon">
+            ❤️
+        </span>
+
+        <span>
+            Eşleşmeler
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="messages"
+        onclick="showPage('messages')">
+
+        <span class="nav-icon">
+            💬
+        </span>
+
+        <span>
+            Mesajlar
+        </span>
+
+    </button>
+
+
+    <button
+        class="nav-item"
+        data-page="profile"
+        onclick="showPage('profile')">
+
+        <span class="nav-icon">
+            👤
+        </span>
+
+        <span>
+            Profil
+        </span>
+
+    </button>
+
+</nav>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div
+    id="modal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <h2 id="modalTitle">
+            YAKIN
+        </h2>
+
+        <p id="modalText">
+            Açıklama
+        </p>
+
+        <div
+            id="modalExtra"
+            class="modal-buttons">
+        </div>
+
+        <div class="modal-buttons">
+
+            <button
+                class="modal-btn"
+                onclick="closeModal()">
+                Kapat
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+    İşlem tamamlandı
+</div>
+
+
+</div>
+
 
 <script>
-const SUPABASE_URL = "https://itxxhjizmiyrddqnykhw.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_s1AA5McRf-EcgL8TJ9J8rw_6YODqDNS";
+/* =====================================================
+   YAKIN V1
+   FRONTEND UYGULAMA MANTIĞI
+===================================================== */
 
-const { createClient } = window.supabase;
 
-const supabaseClient = createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+/* =====================================================
+   DEMO KULLANICILAR
+===================================================== */
 
-console.log("YAKIN Supabase bağlantısı hazır.");
-</script>
-  
-</html>
+const demoUsers = [
+
+    {
+        id:"user_001",
+        name:"Elif",
+        age:29,
+        city:"İstanbul",
+        distance:327,
+        emoji:"👩🏻",
+        activity:"Sosyalleşmek istiyor",
+        music:"Sezen Aksu · Gülümse"
+    },
+
+    {
+        id:"user_002",
+        name:"Zeynep",
+        age:31,
+        city:"İstanbul",
+        distance:540,
+        emoji:"👩🏻‍🦰",
+        activity:"Kahve & sohbet",
+        music:"Yalın · Ki Sen"
+    },
+
+    {
+        id:"user_003",
+        name:"Derya",
+        age:34,
+        city:"İstanbul",
+        distance:820,
+        emoji:"👩🏼",
+        activity:"Yürüyüş & müzik",
+        music:"Neşet Ertaş · Yolcu"
+    },
+
+    {
+        id:"user_004",
+        name:"Merve",
+        age:28,
+        city:"İstanbul",
+        distance:1250,
+        emoji:"👩🏼‍🦱",
+        activity:"Yeni insanlarla tanışmak",
+        music:"Mabel Matiz · Öyle Kolaysa"
+    },
+
+    {
+        id:"user_005",
+        name:"Seda",
+        age:32,
+        city:"İstanbul",
+        distance:2300,
+        emoji:"👩🏻",
+        activity:"Sohbet & kahve",
+        music:"Tarkan · Dudu"
+    }
+
+];
+
+
+/* =====================================================
+   UYGULAMA DURUMU
+===================================================== */
+
+let userLatitude = null;
+let userLongitude = null;
+
+let selectedDistance = 1;
+
+let likedUsers =
+    JSON.parse(
+        localStorage.getItem("yakin_likes") || "[]"
+    );
+
+let matches =
+    JSON.parse(
+        localStorage.getItem("yakin_matches") || "[]"
+    );
+
+let blockedUsers =
+    JSON.parse(
+        localStorage.getItem("yakin_blocked") || "[]"
+    );
+
+
+/* =====================================================
+   SAYFA DEĞİŞTİRME
+===================================================== */
+
+function showPage(pageId){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(page){
+
+            page.classList.remove("active");
+
+        });
+
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if(page){
+
+        page.classList.add("active");
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+            if(
+                item.dataset.page === pageId
+            ){
+
+                item.classList.add("active");
+
+            }
+
+        });
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(pageId === "matches"){
+
+        renderMatches();
+
+    }
+
+
+    if(pageId === "messages"){
+
+        renderMessages();
+
+    }
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openModal(
+    title,
+    text,
+    extraHTML=""
+){
+
+    document
+        .getElementById("modalTitle")
+        .textContent = title;
+
+
+    document
+        .getElementById("modalText")
+        .textContent = text;
+
+
+    document
+        .getElementById("modalExtra")
+        .innerHTML = extraHTML;
+
+
+    document
+        .getElementById("modal")
+        .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+    document
+        .getElementById("modal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   GPS KONUMU
+===================================================== */
+
+function requestLocation(){
+
+    if(!navigator.geolocation){
+
+        openModal(
+            "Konum desteklenmiyor",
+            "Bu tarayıcı GPS konum özelliğini desteklemiyor."
+        );
+
+        return;
+    }
+
+
+    document
+        .getElementById("locationText")
+        .textContent = "Konum alınıyor...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            userLatitude =
+                position.coords.latitude;
+
+            userLongitude =
+                position.coords.longitude;
+
+
+            document
+                .getElementById("locationDot")
+                .classList.add("active");
+
+
+            document
+                .getElementById("locationText")
+                .textContent = "Konum aktif";
+
+
+            localStorage.setItem(
+                "yakin_latitude",
+                userLatitude
+            );
+
+
+            localStorage.setItem(
+                "yakin_longitude",
+                userLongitude
+            );
+
+
+            showToast(
+                "Gerçek konumun alındı 📍"
+            );
+
+
+            /*
+             * GERÇEK SİSTEMDE BURADA:
+             *
+             * Supabase'e konum gönderilecek.
+             *
+             * Secret Key KESİNLİKLE gönderilmeyecek.
+             *
+             * Supabase/PostGIS ile yakın kullanıcılar
+             * hesaplanacak.
+             */
+
+
+            updateNearbyUsers();
+
+        },
+
+        function(error){
+
+            document
+                .getElementById("locationText")
+                .textContent = "Konum kapalı";
+
+
+            document
+                .getElementById("locationDot")
+                .classList.remove("active");
+
+
+            openModal(
+                "Konum izni gerekli",
+                "YAKIN'ın sana yakın kişileri doğru şekilde gösterebilmesi için tarayıcıdan konum izni vermen gerekiyor."
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:30000
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   HAVERSINE MESAFE HESABI
+===================================================== */
+
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    const R = 6371000;
+
+    const p1 =
+        lat1 * Math.PI / 180;
+
+    const p2 =
+        lat2 * Math.PI / 180;
+
+    const deltaLat =
+        (lat2-lat1) *
+        Math.PI / 180;
+
+    const deltaLon =
+        (lon2-lon1) *
+        Math.PI / 180;
+
+
+    const a =
+        Math.sin(deltaLat/2) *
+        Math.sin(deltaLat/2) +
+
+        Math.cos(p1) *
+        Math.cos(p2) *
+
+        Math.sin(deltaLon/2) *
+        Math.sin(deltaLon/2);
+
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1-a)
+        );
+
+
+    return R*c;
+
+}
+
+
+/* =====================================================
+   MESAFE FORMATLAMA
+===================================================== */
+
+function formatDistance(meters){
+
+    if(meters < 1000){
+
+        return Math.round(meters) + " m";
+
+    }
+
+
+    return (
+        meters / 1000
+    ).toFixed(1) + " km";
+
+}
+
+
+/* =====================================================
+   KULLANICILARI GÖSTER
+===================================================== */
+
+function renderPeople(){
+
+    const container =
+        document.getElementById("people");
+
+
+    container.innerHTML = "";
+
+
+    const maxMeters =
+        selectedDistance * 1000;
+
+
+    const users =
+        demoUsers.filter(function(user){
+
+            return (
+                user.distance <= maxMeters &&
+                !blockedUsers.includes(user.id)
+            );
+
+        });
+
+
+    if(users.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📍
+                </div>
+
+                Bu mesafede henüz uygun
+                bir kullanıcı bulunamadı.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    users.forEach(function(user){
+
+        const liked =
+            likedUsers.includes(user.id);
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className = "person";
+
+
+        card.innerHTML = `
+
+            <div class="avatar">
+
+                ${user.emoji}
+
+            </div>
+
+
+            <div class="person-info">
+
+                <div class="person-name">
+
+                    ${user.name}, ${user.age}
+
+                </div>
+
+
+                <div class="person-meta">
+
+                    ${user.city}
+                    ·
+                    ${user.activity}
+
+                </div>
+
+
+                <div class="distance">
+
+                    📍 ${formatDistance(user.distance)}
+
+                    yakınında
+
+                </div>
+
+
+                <div class="music">
+
+                    🎵 ${user.music}
+
+                </div>
+
+            </div>
+
+
+            <div class="person-actions">
+
+                <button
+                    class="icon-btn like-btn ${liked ? "liked" : ""}"
+                    onclick="sendLike('${user.id}')">
+
+                    ${liked ? "♥" : "♡"}
+
+                </button>
+
+
+                <button
+                    class="icon-btn chat-btn"
+                    onclick="openMessage('${user.id}')">
+
+                    💬
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   YAKIN KULLANICILARI GÜNCELLE
+===================================================== */
+
+function updateNearbyUsers(){
+
+    renderPeople();
+
+
+    showToast(
+        "Yakındaki kişiler güncellendi 📍"
+    );
+
+}
+
+
+/* =====================================================
+   MESAFE FİLTRESİ
+===================================================== */
+
+function setDistance(
+    distance,
+    button
+){
+
+    selectedDistance = distance;
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+
+    button.classList.add("active");
+
+
+    renderPeople();
+
+
+    showToast(
+        distance + " km içindeki kişiler gösteriliyor."
+    );
+
+}
+
+
+/* =====================================================
+   YAKIN İSTEĞİ
+===================================================== */
+
+function sendLike(userId){
+
+    const user =
+        demoUsers.find(
+            function(item){
+                return item.id === userId;
+            }
+        );
+
+
+    if(!user){
+        return;
+    }
+
+
+    if(likedUsers.includes(userId)){
+
+        likedUsers =
+            likedUsers.filter(
+                function(id){
+                    return id !== userId;
+                }
+            );
+
+
+        localStorage.setItem(
+            "yakin_likes",
+            JSON.stringify(likedUsers)
+        );
+
+
+        renderPeople();
+
+
+        showToast(
+            user.name + " için YAKIN isteği kaldırıldı."
+        );
+
+
+        return;
+    }
+
+
+    likedUsers.push(userId);
+
+
+    localStorage.setItem(
+        "yakin_likes",
+        JSON.stringify(likedUsers)
+    );
+
+
+    renderPeople();
+
+
+    openModal(
+        "YAKIN isteği gönderildi ❤️",
+        user.name +
+        " kişisine YAKIN isteği gönderdin. Karşı taraf da seni seçerse eşleşeceksiniz."
+    );
+
+}
+
+
+/* =====================================================
+   MESAJ
+===================================================== */
+
+function openMessage(userId){
+
+    const user =
+        demoUsers.find(
+            function(item){
+                return item.id === userId;
+            }
+        );
+
+
+    if(!user){
+        return;
+    }
+
+
+    const isMatch =
+        matches.includes(userId);
+
+
+    if(!isMatch){
+
+        openModal(
+            "Önce YAKIN olmalısınız",
+            user.name +
+            " ile mesajlaşabilmek için önce karşılıklı YAKIN olmanız gerekiyor."
+        );
+
+
+        return;
+    }
+
+
+    openModal(
+        user.name + " ile mesaj",
+        "Mesajlaşma ekranı Supabase bağlantısından sonra gerçek zamanlı çalışacak."
+    );
+
+}
+
+
+/* =====================================================
+   ŞANSINI DENE
+===================================================== */
+
+function chooseChance(choice){
+
+    openModal(
+        "🎲 Şansını Dene",
+        choice +
+        " seçtin. Bu tercihe uygun yakın kişileri bulma özelliği Supabase bağlantısından sonra gerçek kullanıcılarla çalışacak."
+    );
+
+}
+
+
+/* =====================================================
+   EŞLEŞMELERİ GÖSTER
+===================================================== */
+
+function renderMatches(){
+
+    const container =
+        document.getElementById("matchesList");
+
+
+    if(matches.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ❤️
+                </div>
+
+                Henüz karşılıklı YAKIN
+                eşleşmen yok.
+
+                <br><br>
+
+                Keşfet bölümünden
+                insanları keşfetmeye devam et.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    matches.forEach(function(userId){
+
+        const user =
+            demoUsers.find(
+                function(item){
+                    return item.id === userId;
+                }
+            );
+
+
+        if(!user){
+            return;
+        }
+
+
+        const item =
+            document.createElement("div");
+
+
+        item.className = "person";
+
+
+        item.innerHTML = `
+
+            <div class="avatar">
+                ${user.emoji}
+            </div>
+
+            <div class="person-info">
+
+                <div class="person-name">
+                    ${user.name}, ${user.age}
+                </div>
+
+                <div class="person-meta">
+                    ❤️ Karşılıklı YAKIN
+                </div>
+
+                <div class="music">
+                    🎵 ${user.music}
+                </div>
+
+            </div>
+
+            <button
+                class="icon-btn chat-btn"
+                onclick="openMessage('${user.id}')">
+                💬
+            </button>
+
+        `;
+
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+/* =====================================================
+   MESAJLARI GÖSTER
+===================================================== */
+
+function renderMessages(){
+
+    const container =
+        document.getElementById("messageList");
+
+
+    if(matches.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    💬
+                </div>
+
+                Henüz mesajın yok.
+
+                <br><br>
+
+                Önce karşılıklı YAKIN olmalısınız.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    matches.forEach(function(userId){
+
+        const user =
+            demoUsers.find(
+                function(item){
+                    return item.id === userId;
+                }
+            );
+
+
+        if(!user){
+            return;
+        }
+
+
+        container.innerHTML += `
+
+            <div class="message-item"
+                 onclick="openMessage('${user.id}')">
+
+                <div class="message-avatar">
+
+                    ${user.emoji}
+
+                </div>
+
+
+                <div class="message-info">
+
+                    <strong>
+                        ${user.name}
+                    </strong>
+
+                    <span>
+                        Mesajlaşmaya başlayabilirsiniz.
+                    </span>
+
+                </div>
+
+                <span>
+                    ›
+                </span>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   PROFİL DÜZENLE
+===================================================== */
+
+function editProfile(){
+
+    openModal(
+
+        "✏️ Profili Düzenle",
+
+        "Profil bilgilerini düzenleyebilirsin.",
+
+        `
+
+        <div class="form-group">
+
+            <label>
+                Ad
+            </label>
+
+            <input
+                id="editName"
+                value="Kamil">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Şehir
+            </label>
+
+            <input
+                id="editCity"
+                value="İstanbul">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Hakkında
+            </label>
+
+            <textarea
+                id="editBio">Sosyalleşmeyi, müziği ve güzel sohbetleri seviyorum.</textarea>
+
+        </div>
+
+
+        <button
+            class="modal-btn primary"
+            style="margin-top:12px"
+            onclick="saveProfile()">
+
+            Kaydet
+
+        </button>
+
+        `
+
+    );
+
+}
+
+
+/* =====================================================
+   PROFİL KAYDET
+===================================================== */
+
+function saveProfile(){
+
+    const name =
+        document.getElementById("editName").value.trim();
+
+
+    const city =
+        document.getElementById("editCity").value.trim();
+
+
+    const bio =
+        document.getElementById("editBio").value.trim();
+
+
+    if(name){
+
+        document
+            .getElementById("profileName")
+            .textContent = name;
+
+    }
+
+
+    if(city){
+
+        document
+            .getElementById("profileCity")
+            .textContent = city;
+
+    }
+
+
+    document
+        .getElementById("profileBio")
+        .textContent =
+        bio || "Henüz bir
