@@ -317,4 +317,22 @@ insanlarla güzel bağlantılar keşfet.
 </footer>
 
 </body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://itxxhjizmiyrddqnykhw.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_s1AA5McRf-EcgL8TJ9J8rw_6YODqDNS";
+
+const { createClient } = window.supabase;
+
+const supabaseClient = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("YAKIN Supabase bağlantısı hazır.");
+</script>
+  
 </html>
